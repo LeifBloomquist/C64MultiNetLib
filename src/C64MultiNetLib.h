@@ -19,15 +19,17 @@ typedef enum return_codes
 {
     SUCCESS = 0,               // No error, function succeeded
     ERROR_UNSUPPORTED = -1,    // Function is not supported (yet?) on this device
-    ERROR_DEVICE = -2,         // Function failed, use 
+    ERROR_DEVICE = -2,         // Function failed, use net_getlasterror() for specific error code from device
 };
 
 // Function Prototypes
 enum return_codes net_initialize(void);
+int net_getlasterror(void);
+
 enum network_devices net_detectdevice(void);
 int  net_getdetecteddevicenum(void);
-char *net_getdetecteddevicename(void);
-enum return_codes net_getipaddress(char *ipaddress);
+const char *net_getdetecteddevicename(void);
+enum return_codes net_getipaddress(const char* ipaddress_out);
 
 enum return_code net_tcpconnect(char* host, unsigned short port);
 enum return_code net_udpconnect(char* host, unsigned short port);
@@ -39,7 +41,6 @@ enum return_code net_socketclose(unsigned char socketid);
 enum return_code net_tcplistenstart(unsigned short port);
 enum return_code net_tcplistenstop(void);
 int uii_tcpgetlistenstate(void);
-unsigned char uii_tcpgetlistensocket(void);
-
+unsigned short uii_tcpgetlistensocket(void);
 
 #endif
