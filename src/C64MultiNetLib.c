@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "C64MultiNetLib.h"
 
 // Global Variables
@@ -30,46 +32,62 @@ enum return_codes net_forcedevice(enum network_devices device)
     return SUCCESS;
 }
 
-enum network_devices net_getdetecteddevicenum(void)
+enum network_devices net_getdetecteddeviceid(void)
 {
     return detected_device;
 }
 
-const char* net_getdetecteddevicename(void)
+enum return_codes net_getdetecteddevicename(const char* name_out)
 {
+    char* temp;
+
     switch (detected_device)
     {
         case DEVICE_NONE:
-            return "NONE";
+            temp = "NONE";
+            break;
 
         case DEVICE_RRNET:
-            return "RR-NET";
+            temp = "RR-NET";
+            break;
 
         case DEVICE_ETH64:
-            return "ETH64";
+            temp = "ETH64";
+            break;
 
         case DEVICE_ULTIMATE:
-            return "ULTIMATE 64 or 1541";
+            temp = "ULTIMATE 64 or 1541";
+            break;
 
         case DEVICE_MEATLOAF:
-            return "MEATLOAF";
+            temp = "MEATLOAF";
+            break;
 
         case DEVICE_FLYER:
-            return "FLYER";
+            temp = "FLYER";
+            break;
 
         case DEVICE_ZIMODEM:
-            return "ZIMODEM";
+            temp = "ZIMODEM";
+            break;
 
         case DEVICE_WIC64:
-            return "WIC64";
+            temp = "WIC64";
+            break;
 
         default:
-            return "ERROR - UNKNOWN DEVICE";
+            temp = "UNKNOWN DEVICE";
+            break;
     }
+
+    strcpy((char*)name_out, temp);
+    return SUCCESS;
 }
 
 enum return_codes net_getipaddress(const char* ipaddress_out)
 {
+    char* address;
+
     switch (detected_device)
     {
         case DEVICE_RRNET:

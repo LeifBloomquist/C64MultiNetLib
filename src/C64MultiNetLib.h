@@ -29,8 +29,8 @@ int net_getlasterror(void);
 enum return_codes net_detectdevice(void);
 enum return_codes net_forcedevice(enum network_devices device);
 
-enum network_devices net_getdetecteddevicenum(void);
-const char *net_getdetecteddevicename(void);
+enum network_devices net_getdetecteddeviceid(void);
+enum return_codes net_getdetecteddevicename(const char* name_out);
 
 enum return_codes net_getipaddress(const char* ipaddress_out);
 enum return_codes net_tcpconnect(char* host, unsigned short port);
